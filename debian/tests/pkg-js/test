@@ -1,0 +1,14 @@
+# There's little point on testing during build
+if [ -f package.json ]; then
+  exit 0
+fi
+
+echo "Testing if regjsparser can parse a trivial regex"
+cat > test.js <<HERE
+parse=require('regjsparser').parse;
+ast=parse('a');
+process.stdout.write(JSON.stringify(ast));
+ast.codePoint==97 || process.exit(1);
+process.exit(0);
+HERE
+node test.js

@@ -1,0 +1,2 @@
+usr/share/nodejs/regjsparser/bin/parser usr/bin/regjsparser
+usr/share/nodejs/regjsparser/parser.js usr/share/doc/node-regjsparser/examples/parser.js

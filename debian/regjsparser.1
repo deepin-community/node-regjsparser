@@ -1,0 +1,33 @@
+.TH REGJSPARSER "1" "August 2017" "regjsparser v0.2.1" "User Commands"
+.SH NAME
+regjsparser \- Parser of Javascript regular expressions
+.SH SYNOPSIS
+.B regjsparser\fR [regex ...]
+
+.B regjsparser [\-f | \fB\-\-flags]\fR [flags] [regex ...]
+
+.B regjsparser [\-v | \fB\-\-version]\fR
+
+.B regjsparser [\-h | \fB\-\-help]\fR
+
+.SH OPTIONS
+.BI "flags"
+flags to set options
+.TP
+.BI "version"
+prints the version
+.TP
+.BI "help"
+prints help screen
+
+.SH FLAGS
+
+Currently, only u to enable Unicode support is available.
+
+.SH EXAMPLES
+.IP
+regjsparser '^foo.bar$'
+
+regjsparser '[a\-zA\-Z0\-9]'
+
+regjsparser -f u '^foo.bar$'

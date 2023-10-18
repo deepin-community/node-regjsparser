@@ -1,4 +1,6 @@
-# False positive: data
-node-regjsparser source: source-is-missing parser.js
+# False positive: regenerated
+source-is-missing *parser.js*
+source-contains-prebuilt-javascript-object *parser.js*
+very-long-line-length-in-source-file *parser.js*
 # forwarded upstream: https://github.com/jviereck/regjsparser/issues/82
-node-regjsparser source: maintainer-manual-page debian/regjsparser.1
+maintainer-manual-page *debian/regjsparser.1*

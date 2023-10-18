@@ -5,11 +5,10 @@ Section: javascript
 Testsuite: autopkgtest-pkg-nodejs
 Priority: optional
 Build-Depends: debhelper-compat (= 13),
-               nodejs,
+               dh-sequence-nodejs,
                node-regenerate,
-               node-unicode-14.0.0,
-               dh-sequence-nodejs
-Standards-Version: 4.6.0
+               node-unicode-15.0.0,
+Standards-Version: 4.6.1
 Vcs-Browser: https://salsa.debian.org/js-team/node-regjsparser
 Vcs-Git: https://salsa.debian.org/js-team/node-regjsparser.git
 Homepage: https://github.com/jviereck/regjsparser
@@ -19,7 +18,7 @@ Package: node-regjsparser
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-         nodejs,
+         nodejs:any,
          node-jsesc
 Description: Parser for JavaScript's RegExp for Node.js
  This module provides a parser for the JavaScript's RegExp, itself written

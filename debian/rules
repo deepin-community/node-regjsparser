@@ -2,3 +2,12 @@
 
 %:
 	dh $@
+
+override_dh_auto_build:
+	cp parser.js parser-save.js
+	node tools/generate-identifier-regex.js >unicode-data.js
+	perl -i -pe 's/var\s*(NonAsciiIdentifierStart|NonAsciiIdentifierPartOnly)\s*=.*$$/var $$1 = unicodeData.$$1;/' parser.js
+
+override_dh_auto_clean:
+	if test -e parser-save.js; then mv parser-save.js parser.js; fi
+	dh_auto_clean --buildsystem=nodejs

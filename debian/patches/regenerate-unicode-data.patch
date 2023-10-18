@@ -1,0 +1,58 @@
+Description: regenerate unicode data
+Author: Yadd <yadd@debian.org>
+Forwarded: no
+Last-Update: 2022-09-01
+
+--- a/package.json
++++ b/package.json
+@@ -22,6 +22,7 @@
+     "LICENSE.BSD",
+     "parser.js",
+     "parser.d.ts",
++    "unicode-data.js",
+     "README.md"
+   ],
+   "dependencies": {
+--- a/parser.js
++++ b/parser.js
+@@ -221,6 +221,8 @@
+ "use strict";
+ (function() {
+ 
++  const unicodeData = require("./unicode-data.js");
++
+   var fromCodePoint = String.fromCodePoint || (function() {
+     // Implementation taken from
+     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint
+--- a/tools/generate-identifier-regex.js
++++ b/tools/generate-identifier-regex.js
+@@ -7,7 +7,7 @@
+ 
+ // Shorthand function
+ var get = function(what) {
+-  return require('unicode-' + version + '/' + what + '/code-points');
++  return require('@unicode/unicode-' + version + '/' + what + '/code-points');
+ };
+ 
+ // Get the Unicode properties needed to construct the regex.
+@@ -34,13 +34,16 @@
+ };
+ 
+ var result = generateRegex();
++
++console.log('module.exports = {');
+ console.log(
+-  '// ECMAScript (Unicode v%s) NonAsciiIdentifierStart:\n\n%s\n',
++  '// ECMAScript (Unicode v%s) NonAsciiIdentifierStart:\n\n  "NonAsciiIdentifierStart": /%s/,\n',
+   version,
+-  result.NonAsciiIdentifierStart
++  result.NonAsciiIdentifierStart.replace(/^\[/, '[\\$A-Z_a-z')
+ );
+ console.log(
+-  '// ECMAScript (Unicode v%s) NonAsciiIdentifierPartOnly:\n\n%s',
++  '// ECMAScript (Unicode v%s) NonAsciiIdentifierPartOnly:\n\n  "NonAsciiIdentifierPartOnly": /%s/,',
+   version,
+-  result.NonAsciiIdentifierPartOnly
++  result.NonAsciiIdentifierPartOnly.replace(/^\[/, '[0-9_')
+ );
++console.log('}');
